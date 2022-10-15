@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+//This class is for Client Operations i.e Get and Put
 public class SocketClient {
 
 	public  String host;
@@ -24,7 +24,7 @@ public class SocketClient {
 		this.filename = filename;
 		this.action = action;
 	}
-
+	//Handles the Get Operations
 	public void getCommand() throws IOException {
 		System.out.println("CLIENT : About to get connection with server for file" + filename);
 		System.out
@@ -33,18 +33,20 @@ public class SocketClient {
 		BufferedReader in = null;
 		Socket socket = null;
 		try {
-
+			//Opening the Socket
 			InetAddress addr = InetAddress.getByName(host);
 			socket = new Socket(addr, port);
 
 			System.out.println("CLIENT : Connected with server on port " + port);
+			//Output stream to send the request to Server
 			out = new PrintWriter(socket.getOutputStream(), true);
+			//Input stream to read the response from Server
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			// Sending request to HTTP Server
 
 			if (host != null && host.equalsIgnoreCase("localhost")) {
-				out.print("GET /" + filename + "/ HTTP/1.0\r\n"); // "+path+"
+				out.print("GET /" + filename + "/ HTTP/1.0\r\n"); 
 				out.print("Host: " + host + "\r\n");
 				out.print("\r\n");
 				out.flush();
@@ -65,19 +67,18 @@ public class SocketClient {
 
 			System.out.println("CLIENT :: Response received for GET OPERATION ");
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			//Closing the resources
 			in.close();
 			out.close();
 			socket.close();
 		}
 
 	}
-
+	//Method for Put Operation
 	public void putCommand() throws IOException {
 
 		Socket socket = null;
@@ -85,10 +86,13 @@ public class SocketClient {
 		BufferedReader in = null;
 
 		try {
+			//Creating a Socket Connection
 			socket = new Socket(host, port);
 			System.out.println("CLIENT :: CONNECTED WITH SERVER FOR PUT  ");
-
+			
+			//Output Stream for sending request to server
 			out = new PrintWriter(socket.getOutputStream(), true);
+			//Input Stream for receiving response from Server
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			// Sending out to the server
@@ -129,7 +133,7 @@ public class SocketClient {
 		}
 
 	}
-
+	//Logic to read the file in client side
 	private static String readFile(String file) {
 
 		BufferedReader reader;

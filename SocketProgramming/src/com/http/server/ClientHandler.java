@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-
+//Class for Server Operations
 public class ClientHandler implements Runnable {
 	private Socket socket;
 	public static String DestFilePath = "C:\\Users\\jkvas\\eclipse-workspace\\SocketProgramming\\src\\TestFilesServer\\";
@@ -35,7 +35,9 @@ public class ClientHandler implements Runnable {
 		BufferedWriter out = null;
 		try {
 			System.out.println("SERVER :: Received a connection");
+			//InputStream to read requests from client
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			//Outputstream to send response to client
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 			String request = "";
@@ -48,7 +50,7 @@ public class ClientHandler implements Runnable {
 
 			// HTTP METHOD
 			StringBuilder requestBuilder = new StringBuilder();
-
+			//To distinguish GET and PUT
 			String file = request.split("\n")[0].split(" ")[1].split("/")[1];
 			if (request.split("\n")[0].contains("GET") && checkURL(file)) {
 
@@ -57,6 +59,7 @@ public class ClientHandler implements Runnable {
 				constructResponseHeader(200, requestBuilder);
 				System.out.println("SERVER :: RESPONSE HEADER :: " + requestBuilder.toString());
 				out.write(requestBuilder.toString());
+				// Get the corresponding file data and sent to Client
 				out.write(getData(file));
 
 				out.flush();
@@ -69,6 +72,7 @@ public class ClientHandler implements Runnable {
 				String ls = ls = System.getProperty("line.separator");
 
 				StringBuffer buf = new StringBuffer();
+				//Read the input file from client
 				while (!(contentLine = in.readLine()).equals("\u0004")) {
 
 					buf.append(contentLine);
@@ -79,6 +83,7 @@ public class ClientHandler implements Runnable {
 				int responseCode = putData(buf.toString(), file);
 				System.out.println("SERVER :: Construct Response  " + responseCode);
 				constructResponseHeader(responseCode, requestBuilder);
+				//Save to disk and send response
 				out.write(requestBuilder.toString());
 				requestBuilder.setLength(0);
 				out.flush();
@@ -135,7 +140,7 @@ public class ClientHandler implements Runnable {
 			sb.append("\r\n");
 		}
 	}
-
+	//Get the file data
 	private static String getData(String file) throws IOException {
 
 		File myFile = new File(file);
@@ -162,13 +167,13 @@ public class ClientHandler implements Runnable {
 		return responseToClient.toString();
 	}
 
-	// PUT data to file ServerIndex.htm
+	// PUT data to file by Server
 	private static int putData(String putDataFromClient, String file) throws IOException {
 
 		return writeFile(putDataFromClient, file);
 	}
 
-	// Write the data to server - Helper method for putData method
+	// Write the data to server 
 	private static int writeFile(String putDataFromClient, String file) {
 
 		File myFile = new File(DestFilePath + file);
