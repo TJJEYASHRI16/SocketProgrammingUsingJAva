@@ -12,8 +12,8 @@ import java.net.Socket;
 //Class for Server Operations
 public class ClientHandler implements Runnable {
 	private Socket socket;
-	public static String DestFilePath = "C:\\Users\\jkvas\\eclipse-workspace\\SocketProgramming\\src\\TestFilesServer\\";
-	public static String SourceFilePath = "C:\\Users\\jkvas\\eclipse-workspace\\SocketProgramming\\src\\TestFilesClient\\";
+	public static String DestFilePath = "C:\\Users\\jkvas\\Desktop\\TJ\\GitRepo\\SocketProgramming\\SocketProgramming\\src\\TestFilesServer\\";
+	public static String SourceFilePath = "C:\\Users\\jkvas\\Desktop\\TJ\\GitRepo\\SocketProgramming\\SocketProgramming\\src\\TestFilesClient\\";
 
 	public ClientHandler(Socket socket) {
 		this.socket = socket;

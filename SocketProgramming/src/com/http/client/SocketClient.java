@@ -16,7 +16,7 @@ public class SocketClient {
 	public  int port;
 	public  String filename;
 	public  String action;
-	public  String SourceFilePath = "C:\\Users\\jkvas\\eclipse-workspace\\SocketProgramming\\src\\TestFilesClient\\";
+	public  String SourceFilePath = "C:\\Users\\jkvas\\Desktop\\TJ\\GitRepo\\SocketProgramming\\SocketProgramming\\src\\TestFilesClient\\";
 
 	public SocketClient(String host, int port, String action, String filename) {
 		this.host = host;

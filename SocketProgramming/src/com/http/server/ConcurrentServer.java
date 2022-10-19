@@ -17,12 +17,12 @@ public class ConcurrentServer {
 	public void start() throws IOException, InterruptedException {
 		// Socket is created and ready to accept
 		serverSocket = new ServerSocket(port);
-		System.out.println("Starting the socket server at port:" + port);
+		System.out.println("Server starts at  port:" + port);
 
 		Socket client = null;
 
 		while (true) {
-			System.out.println("Waiting for clients...");
+			System.out.println("About to connect with client . ");
 			//Connection is accepted with the client
 			client = serverSocket.accept();
 			System.out.println("The following client has connected:"
